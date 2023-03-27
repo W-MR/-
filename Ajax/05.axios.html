@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="button" value="get">
+  <input type="button" value="post">
+  <input type="button" value="put">
+  <input type="button" value="patch">
+  <input type="button" value="delete">
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.3.4/axios.min.js"></script>
+  <script>
+    let ipt = document.querySelectorAll("input")
+    ipt[0].onclick = function () {
+      // 查看数据
+      console.log("get请求");
+      //   let xhr = new XMLHttpRequest()
+      //   let myUrl = "http://localhost:3000/users"
+      //   xhr.open("get", myUrl)
+      //   xhr.send()
+      //   xhr.onload = function () {
+      //     // 因为http状态码为200~299这里我们直接就用正则表达式来判断是否满足条件
+      //     if (/^2\d{2}$/.test(xhr.status)) {
+      //       console.log(xhr.responseText);
+      //     }
+      //   }
+
+
+
+      axios.get("http://localhost:3000/users", {
+        // 传参将参数写在params中
+        params: {
+          name: "无墨染"
+        }
+      })
+        .then(res => {
+          console.log(res.data);
+        }).catch(err => {
+          console.log("error", err);
+        })
+    }
+    // ---------------------------------------------------------------------
+
+    ipt[1].onclick = function () {
+      // 上传数据
+      console.log("post请求");
+      // let xhr = new XMLHttpRequest()
+      // let myUrl = "http://localhost:3000/users"
+      // xhr.open("post", myUrl)
+      // // 设置请求头编码类型
+      // // form编码  name=无墨染&age=18
+      // // json编码  {name:"无墨染",age:"18"}
+
+      // // xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded")
+      // // // 与get不同我们将数据放在send中
+      // // xhr.send("name=张三&age=18")
+
+      // xhr.setRequestHeader("content-type", "application/json")
+      // xhr.send(JSON.stringify({ name: "李四", age: 20 }))
+      // // 在我们db.json中的users中将会添加数据
+      // xhr.onload = function () {
+      //   if (/^2\d{2}$/.test(xhr.status)) {
+      //     console.log(xhr.responseText)
+      //   }
+      // }
+
+
+      // axios.post("http://localhost:3000/users", {
+        // 默认传的json格式(需要以对象的形式传)
+        // name:"小明",
+        // age:88
+      // })
+      axios.post("http://localhost:3000/users",
+      // 当我们需要传表单格式时会自动变成表单格式
+      "name=铁锤&age=66"
+      )
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.error(err); 
+      })
+    }
+    // --------------------------------------------------
+    ipt[2].onclick = function () {
+      // put 用于更改数据
+      console.log("put请求");
+      // let xhr = new XMLHttpRequest()
+      // let myUrl = "http://localhost:3000/users/5"
+      // xhr.open("put", myUrl)
+      // // put 请求也需要设置请求头编码格式
+      // xhr.setRequestHeader("content-type", "application/json")
+      // // 我们在send里面进行数据的修改url的地址后面需要添加所要修改的id号
+      // xhr.send(JSON.stringify({
+      //   name: "王五"
+      // }))// 这里有个缺点当我们更改姓名时我们id为5的这个数据里面的其他内容将会被删除，如果只改一项数据不推荐使用，该整体可以使用，改单个数据建议用PATCH
+      // xhr.onload = function () {
+      //   if (/^2\d{2}$/.test(xhr.status)) {
+      //     console.log(xhr.responseText);
+      //   }
+      // }
+
+      axios.put("http://localhost:3000/users/9",{
+        name:"小红"
+      })
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.error(err); 
+      })
+    }
+    // ----------------------------------------------------
+    ipt[3].onclick = function () {
+      console.log("patch请求");
+      // let xhr = new XMLHttpRequest()
+      // let myUrl = "http://localhost:3000/users/6"
+      // // PATCH 请求字母必须大写
+      // xhr.open("PATCH", myUrl)
+      // // PATCH 请求也需要设置请求头编码格式
+      // xhr.setRequestHeader("content-type", "application/json")
+      // xhr.send(JSON.stringify({
+      //   name: "赵六"
+      // }))
+      // xhr.onload = function () {
+      //   if (/^2\d{2}$/.test(xhr.status)) {
+      //     console.log(xhr.responseText);
+      //   }
+      // }
+      axios.patch("http://localhost:3000/users/7",{
+        name:"大明"
+      })
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.error(err); 
+      })
+    }
+
+    // --------------------------------------------------------------------
+    ipt[4].onclick = function () {
+      // 删除
+      console.log("delete请求");
+      // let xhr = new XMLHttpRequest()
+      // let myUrl = "http://localhost:3000/users/7"
+      // xhr.open("delete", myUrl)
+      // xhr.send()
+      // xhr.onload = function () {
+      //   if (/^2\d{2}$/.test(xhr.status)) {
+      //     console.log(xhr.responseText);
+      //   }
+      // }
+
+      axios.delete("http://localhost:3000/users/10",{
+        name:"大明"
+      })
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.error(err); 
+      })
+    }
+    // 以上操作必须使用json-server
+  </script>
+</body>
+
+</html>

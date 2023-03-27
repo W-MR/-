@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button id="btn">请求数据</button>
+  <div id="odiv"></div>
+  <script>
+    // http://xiongmaoyouxuan.com/api/tabs
+    document.querySelector("#btn").onclick = function () {
+      let xhr = new XMLHttpRequest()
+      xhr.open("get", "http://xiongmaoyouxuan.com/api/tabs")
+      xhr.send()
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          let jsonObj = xhr.responseText
+          table(jsonObj)
+        }
+      }
+    }
+    function table(dataObj) {
+      let myData = JSON.parse(dataObj).data.list
+      let pages = myData.map((v) => {
+        return `<ul>
+          <li>${v.name}</li>
+          <img src="${v.imageUrl}"></img>
+          </ul>`
+      })
+      console.log(pages);
+      document.querySelector("#odiv").innerHTML = pages.join("")
+    }
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var xhr = new XMLHttpRequest()
+    // 请求地址
+    let myUrl = "http://127.0.0.1:5502/Ajax/data/1.json"
+    // 请求方式
+    xhr.open("get", myUrl)
+    // 发送请求
+    xhr.send()
+    /* 
+  readyState === 0： 表示未初始化完成，也就是 `open` 方法还没有执行
+  readyState === 1： 表示配置信息已经完成，也就是执行完 `open` 之后
+  readyState === 2： 表示 `send` 方法已经执行完成
+  readyState === 3： 表示正在解析响应内容
+  readyState === 4： 表示响应内容已经解析完毕，可以在客户端使用了
+    */
+    // onreadystatechange监听readyState状态码
+    // xhr.onreadystatechange = function () {
+    //   if (xhr.readyState === 4) {
+      
+      /* 
+        配合http状态码为200~299
+        
+      */
+
+        // status记录本次请求的http状态码的
+    //     if(xhr.status===200){
+    // responseText 记录服务端给我们的响应体内容
+    //       console.log(xhr.responseText);
+    //     }
+    //   }
+    // }
+    // onload只有在readySate===4的时候才会去执行
+    xhr.onload = function () {
+      if (xhr.status == 200) {
+        console.log(xhr.responseText);
+      }
+    }
+  </script>
+</body>
+
+</html>

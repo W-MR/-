@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="text">
+  <ul>
+    <!-- <li></li> -->
+  </ul>
+  <script>
+    // jsonp实现跨域只能get请求
+    let ipt = document.querySelector("input")
+    ipt.oninput = function () {
+      // console.log(ipt.value);
+
+      let url = `https://www.baidu.com/sugrec?pre=1&p=3&ie=utf-8&json=1&prod=pc&from=pc_web&wd=${ipt.value}&req=2&bs=k&csor=1&cb=fn&_=1678953649345`
+      let script = document.createElement("script")
+      script.src = url
+      document.body.appendChild(script)
+      // 加载完后删除冗余的script标签
+      script.onload=function(){
+        script.remove()
+      }
+    }
+    function fn(res) {
+      // console.log(res.g);
+      if (res.g) {
+        let data = res.g.map((v) => `<li><a href="https://www.baidu.com/baidu?tn=monline_3_dg&ie=utf-8&wd=${v.q}>${v.q}</a></li>`)
+        return document.querySelector("ul").innerHTML = data.join("")
+      } else {
+        document.querySelector("ul").innerHTML = "";
+      }
+
+    }
+  </script>
+</body>
+
+</html>
